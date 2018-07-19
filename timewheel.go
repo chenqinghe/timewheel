@@ -10,7 +10,7 @@ import (
 // Job 延时任务回调函数
 type Job func(TaskData)
 // TaskData 回调函数参数类型
-type TaskData map[interface{}]interface{}
+type TaskData interface{}
 
 // TimeWheel 时间轮
 type TimeWheel struct {
