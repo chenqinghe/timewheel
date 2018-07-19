@@ -30,7 +30,7 @@ type Task struct {
 	delay  time.Duration // 延迟时间
 	circle int           // 时间轮需要转动几圈
 	key    interface{}   // 定时器唯一标识, 用于删除定时器
-	data   TaskData      // 回调函数参数
+	data   []interface{}      // 回调函数参数
 }
 
 // New 创建时间轮
@@ -74,7 +74,7 @@ func (tw *TimeWheel) Stop() {
 }
 
 // AddTimer 添加定时器 key为定时器唯一标识
-func (tw *TimeWheel) AddTimer(delay time.Duration, key interface{}, data TaskData) {
+func (tw *TimeWheel) AddTimer(delay time.Duration, key interface{}, data ...interface{}) {
 	if delay <= 0 || key == nil {
 		return
 	}
@@ -125,7 +125,7 @@ func (tw *TimeWheel) scanAndRunTask(l *list.List) {
 			continue
 		}
 
-		go tw.job(task.data)
+		go tw.job(task.data...)
 		next := e.Next()
 		l.Remove(e)
 		delete(tw.timer, task.key)
