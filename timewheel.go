@@ -8,9 +8,7 @@ import (
 // @author qiang.ou<qingqianludao@gmail.com>
 
 // Job 延时任务回调函数
-type Job func(TaskData)
-// TaskData 回调函数参数类型
-type TaskData interface{}
+type Job func(data ...interface{})
 
 // TimeWheel 时间轮
 type TimeWheel struct {
